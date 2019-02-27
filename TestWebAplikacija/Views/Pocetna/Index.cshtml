@@ -1,0 +1,85 @@
+﻿@model IEnumerable<TestWebAplikacija.Models.PocetnaAdministratorViewModel>
+
+@{
+    ViewBag.Title = "AdminIndex";
+    var i = 1;
+}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+<div class="">
+
+    <div class="row">
+
+        <div class="col-8">
+
+            @{
+                if (User.IsInRole("Administrator"))
+                {
+                    <a href="/Test/Create">Kreiraj test</a>
+                }
+             }
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th>@Html.DisplayNameFor(model => model.Naziv)</th>
+                                @{
+                                    if (User.Identity.IsAuthenticated)
+                                    {
+                                        <th scope="col">@Html.DisplayNameFor(model => model.DatumKreiranja)</th>
+                                    }
+                                }
+                                <th scope="col">@Html.DisplayNameFor(model => model.ProcenatBodovaZaPolaganje)</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.Opis)</th>
+                                @{
+                                    if (User.Identity.IsAuthenticated)
+                                    {
+                                        <th scope="col"></th>
+                                    }
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <th style="font-weight:normal" class="text-center" scope="row">@i</th>
+                                <th style="font-weight:normal" class="text-center">@item.Naziv</th>
+                                @{
+                                    if (User.Identity.IsAuthenticated)
+                                    {
+                                        <th style="font-weight:normal" class="text-center">@item.DatumKreiranja.ToShortDateString()</th>
+                                    }
+                                }
+                                <th style="font-weight:normal" class="text-center">@item.ProcenatBodovaZaPolaganje%</th>
+                                <th style="font-weight:normal">@item.Opis</th>
+                                @{
+                                    if (User.IsInRole("Administrator"))
+                                    {
+                                        <th style="font-weight:normal" class="text-center"><a href="/Test/Edit/@item.TestId" class="fas fa-edit"></a> <a href="/Test/Detail/@item.TestId" class="fas fa-ellipsis-h pl-3"></a></th>
+                                    }
+                                }
+                                @{
+                                    if (User.IsInRole("Korisnik"))
+                                    {
+                                        <th style="font-weight:normal" class="text-center"><a href="/Test/Polozi/@item.TestId" class="fas fa-pen"></a></th>
+                                    }
+                                }
+                            </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+        <div class="col-4"></div>
+
+    </div>
+
+</div>
+

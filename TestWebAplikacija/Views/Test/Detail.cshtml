@@ -1,0 +1,46 @@
+﻿@model TestWebAplikacija.Models.TestDetaljiViewModel
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<div>
+
+    <div>
+        <p>Naziv: @Model.Naziv</p>
+        <p>Opis: @Model.Opis</p>
+        <p>Datum kreiranja: @Model.DatumKreiranja.ToShortDateString()</p>
+        <p>Procenat za prolazak: @Model.ProcenatBodovaZaPolaganje%</p>
+    </div>
+
+    <div>
+
+        <a href="/Pitanja/Create/@Model.TestId">Kreiraj novo pitanje</a>
+
+        @foreach(var item in Model.Pitanjas)
+        {
+            <div>
+                Pitanje: @Html.Raw(item.Tekst)
+                <p>Broj bodova: @item.BrojBodova</p>
+                @*<a href="/Pitanja/Edit/@item.PitanjeId">Izmijeni pitanje</a>*@
+            </div>
+
+            <div>
+
+                <ul>
+
+                    @foreach (var odgovori in item.Odgovors)
+                    {
+                        <li>@odgovori.Tekst <span>@(odgovori.Tacan != null?"Tacan":"")</span></li>
+                    }
+
+                </ul>
+
+            </div>
+
+        }
+
+    </div>
+
+</div>
+

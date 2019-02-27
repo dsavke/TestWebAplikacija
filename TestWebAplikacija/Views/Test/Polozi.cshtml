@@ -1,0 +1,50 @@
+﻿@model IEnumerable<TestWebAplikacija.Models.UradiTestViewModel>
+
+@{
+    ViewBag.Title = "Polozi";
+}
+
+@using (Html.BeginForm())
+{
+    <form>
+
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <div>
+
+                <div>
+
+                    @Html.Hidden("Model[" + i + "].PitanjeId", Model.ElementAt(i).PitanjeId)
+                    @Html.Hidden("Model[" + i + "].BrojBodova", Model.ElementAt(i).BrojBodova)
+                    @Html.Hidden("Model[" + i + "].TestId", Model.ElementAt(i).TestId)
+
+                    @Html.Raw(Model.ElementAt(i).Tekst)
+                    @Html.Hidden("Model[" + i + "].Tekst", Model.ElementAt(i).Tekst)
+                    <br />
+                    @Html.RadioButton("Model[" + i + "].TacanOdgovor", Model.ElementAt(i).PrviId)
+                    @Html.Label("Model[" + i + "].TacanOdgovor", Model.ElementAt(i).PrviOdgovor)
+                    <br />
+                    @Html.RadioButton("Model[" + i + "].TacanOdgovor", Model.ElementAt(i).DrugiId)
+                    @Html.Label("Model[" + i + "].TacanOdgovor", Model.ElementAt(i).DrugiOdgovor)
+                    <br />
+                    @Html.RadioButton("Model[" + i + "].TacanOdgovor", Model.ElementAt(i).TreciId)
+                    @Html.Label("Model[" + i + "].TacanOdgovor", Model.ElementAt(i).TreciOdgovor)
+                    <br />
+                    @Html.RadioButton("Model[" + i + "].TacanOdgovor", Model.ElementAt(i).CetvrtiId)
+                    @Html.Label("Model[" + i + "].TacanOdgovor", Model.ElementAt(i).CetvrtiOdgovor)
+
+
+
+                </div>
+
+            </div>
+
+            <hr/>
+        }
+
+        <input type="submit" value="Save" />
+
+
+    </form>
+}
+
