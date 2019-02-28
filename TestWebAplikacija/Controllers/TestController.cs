@@ -11,12 +11,14 @@ namespace TestWebAplikacija.Controllers
 {
     public class TestController : Controller
     {
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create(TestViewModel testViewModel)
         {
             using (var context = new TestContext())
@@ -36,6 +38,7 @@ namespace TestWebAplikacija.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(string id)
         {
             using (var context = new TestContext())
@@ -55,6 +58,7 @@ namespace TestWebAplikacija.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(TestViewModel testViewModel)
         {
             using (var context = new TestContext())
@@ -70,6 +74,7 @@ namespace TestWebAplikacija.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Detail(string id)
         {
             using (var context = new TestContext())
@@ -107,7 +112,7 @@ namespace TestWebAplikacija.Controllers
                 return View(detaljiTestViewModel);
             }
         }
-
+        [Authorize(Roles = "Korisnik")]
         public ActionResult Polozi(string id)
         {
             using(var context = new TestContext())
@@ -137,6 +142,7 @@ namespace TestWebAplikacija.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Korisnik")]
         public ActionResult Polozi(List<UradiTestViewModel> Model)
         {
             using (var context = new TestContext())
@@ -166,11 +172,7 @@ namespace TestWebAplikacija.Controllers
             }
         }
 
-       /* public ActionResult RezultatTesta(RezultatTestaViewModel rezultatTestaViewModel)
-        {
-            return View();
-        }*/
-
+        [Authorize(Roles = "Korisnik")]
         public ActionResult MojiTestovi()
         {
             using(var context = new TestContext())
@@ -188,6 +190,7 @@ namespace TestWebAplikacija.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult List(int id)
         {
             ViewBag.Id = id;
@@ -195,6 +198,7 @@ namespace TestWebAplikacija.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult ListTests(string id, int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
         {
             try

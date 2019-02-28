@@ -10,13 +10,15 @@ namespace TestWebAplikacija.Controllers
 {
     public class PitanjaController : Controller
     {
-        
+
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create(string id)
         {
             return View(new PitanjaCreateViewModel() { TestId = Convert.ToInt32(id)});
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create(PitanjaCreateViewModel pitanjaCreateViewModel)
         {
             using (var context = new TestContext())

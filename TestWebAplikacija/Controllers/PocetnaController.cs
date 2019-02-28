@@ -10,7 +10,7 @@ namespace TestWebAplikacija.Controllers
 {
     public class PocetnaController : Controller
     {
-     
+        [AllowAnonymous]
         public ActionResult Index()
         {
             using (var context = new TestContext())
