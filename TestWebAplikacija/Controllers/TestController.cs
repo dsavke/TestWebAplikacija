@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TestWebAplikacija.DBModels;
 using TestWebAplikacija.Models;
+using System.Linq.Dynamic;
 
 namespace TestWebAplikacija.Controllers
 {
@@ -152,9 +153,78 @@ namespace TestWebAplikacija.Controllers
                 };
                 context.KorisnikTests.Add(korisnikTest);
                 context.SaveChanges();
-                return RedirectToAction("Index", "Pocetna");
+
+                var rezultat = new RezultatTestaViewModel()
+                {
+                    UkupanBrojBodova = korisnikTest.BrojBodova,
+                    BrojTacnihBodova = Model.Where(p => context.Odgovors.Find(p.TacanOdgovor).Tacan != null).Count(),
+                    BrojNeTacnihBodova = Model.Where(p => context.Odgovors.Find(p.TacanOdgovor).Tacan == null).Count(),
+                    ProcenatOsvojenihBodova = (short)((((double)korisnikTest.BrojBodova / context.Tests.Find(Model.ElementAt(0).TestId).Pitanjes.Sum(p => p.BrojBodova))) *100.00)
+                };
+
+                return View("RezultatTesta", rezultat);
             }
         }
+
+       /* public ActionResult RezultatTesta(RezultatTestaViewModel rezultatTestaViewModel)
+        {
+            return View();
+        }*/
+
+        public ActionResult MojiTestovi()
+        {
+            using(var context = new TestContext())
+            {
+                var user = context.Korisniks.FirstOrDefault(k => k.KorisnickoIme == User.Identity.Name);
+
+                var mojiTestovi = user.KorisnikTests
+                    .Select(t => new MojITestoviViewModel() {
+                        Naziv = t.Test.Naziv,
+                        DatumPolaganja = t.Datum,
+                        BrojBodova = t.BrojBodova
+                    }).OrderByDescending(t => t.BrojBodova).ToList();
+
+                return View(mojiTestovi);
+            }
+        }
+
+        public ActionResult List(int id)
+        {
+            ViewBag.Id = id;
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ListTests(string id, int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
+        {
+            try
+            {
+                var testId = Convert.ToInt32(id);
+                using (var context = new TestContext())
+                {
+                    var test = context.Tests.Find(testId);
+                    var svaPolaganja = test.KorisnikTests
+                        .Select(t => new SvaPolaganjaViewModel()
+                        {
+                            KorisnickoIme = t.Korisnik.KorisnickoIme,
+                            DatumPolaganja = t.Datum,
+                            BrojBodova = t.BrojBodova,
+                            ProcenatOsvojenihBodova = (short)((((double)t.BrojBodova / (double)(t.Test.Pitanjes.Sum(p => p.BrojBodova))) * 100.00))
+                        }).ToList();
+
+                    var count = svaPolaganja.Count();
+                    var records = svaPolaganja.OrderBy(jtSorting).Skip(jtStartIndex).Take(jtPageSize).ToList();
+
+                    //Return result to jTable
+                    return Json(new { Result = "OK", Records = records, TotalRecordCount = count });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+        }
+
 
     }
 }

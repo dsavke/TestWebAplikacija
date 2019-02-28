@@ -16,8 +16,9 @@
     <div>
 
         <a href="/Pitanja/Create/@Model.TestId">Kreiraj novo pitanje</a>
+        <a href="/Test/List/@Model.TestId">Sva polaganja ovog testa</a>
 
-        @foreach(var item in Model.Pitanjas)
+        @foreach (var item in Model.Pitanjas)
         {
             <div>
                 Pitanje: @Html.Raw(item.Tekst)
@@ -31,7 +32,7 @@
 
                     @foreach (var odgovori in item.Odgovors)
                     {
-                        <li>@odgovori.Tekst <span>@(odgovori.Tacan != null?"Tacan":"")</span></li>
+                        <li>@odgovori.Tekst <span>@(odgovori.Tacan != null ? "Tacan" : "")</span></li>
                     }
 
                 </ul>

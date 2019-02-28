@@ -1,0 +1,39 @@
+﻿@model IEnumerable<TestWebAplikacija.Models.MojITestoviViewModel>
+
+@{
+    ViewBag.Title = "MojiTestovi";
+}
+
+<h2>MojiTestovi</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumPolaganja)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrojBodova)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumPolaganja)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrojBodova)
+        </td>
+    </tr>
+}
+
+</table>

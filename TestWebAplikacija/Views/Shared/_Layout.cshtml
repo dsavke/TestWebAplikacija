@@ -26,6 +26,7 @@
                     @if (User.IsInRole("Korisnik"))//linkovi za korisnika
                     {
                         <li class="nav-item">@Html.ActionLink("Pocetna", "Index", "Pocetna", new { }, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Moji testovi", "MojiTestovi", "Test", new { }, new { @class = "nav-link" })</li>
                         <li class="nav-item">@Html.ActionLink("Odjava", "IzlogujSe", "Nalog", new { }, new { @class = "nav-link" })</li>
                     }
                     @if (User.IsInRole("Administrator"))//linkovi za korisnika

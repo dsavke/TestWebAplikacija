@@ -181,14 +181,19 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\KorisnikViewModel.cs" />
+    <Compile Include="Models\MojITestoviViewModel.cs" />
+    <Compile Include="Models\NajpopularnijiTestoviViewModel.cs" />
     <Compile Include="Models\NalogViewModel.cs" />
     <Compile Include="Models\OdgovorViewModel.cs" />
     <Compile Include="Models\PitanjaCreateViewModel.cs" />
     <Compile Include="Models\PitanjaViewModel.cs" />
     <Compile Include="Models\PocetnaAdministratorViewModel.cs" />
+    <Compile Include="Models\RezultatTestaViewModel.cs" />
+    <Compile Include="Models\SvaPolaganjaViewModel.cs" />
     <Compile Include="Models\TestDetaljiViewModel.cs" />
     <Compile Include="Models\TestPocetnaPrikazViewModel.cs" />
     <Compile Include="Models\TestViewModel.cs" />
+    <Compile Include="Models\TriNajboljaKandidataViewModel.cs" />
     <Compile Include="Models\UradiTestViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -474,6 +479,9 @@
     <Content Include="Views\Test\Detail.cshtml" />
     <Content Include="Views\Pitanja\Create.cshtml" />
     <Content Include="Views\Test\Polozi.cshtml" />
+    <Content Include="Views\Test\MojiTestovi.cshtml" />
+    <Content Include="Views\Test\List.cshtml" />
+    <Content Include="Views\Test\RezultatTesta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

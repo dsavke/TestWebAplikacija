@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "List";
+}
+<input style="display:none" value="@ViewBag.Id" id="testID"/>
+
+<div id="StudentTableContainer"></div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#StudentTableContainer').jtable({
+                title: 'Sva polaganja',
+                paging: true, //Enable paging
+                pageSize: 10, //Set page size (default: 10)
+                sorting: true, //Enable sorting
+                defaultSorting: 'KorisnickoIme ASC', //Set default sorting
+                actions: {
+                    listAction: `/Test/ListTests?id=${$('#testID').val()}`
+                },
+                fields: {
+                    KorisnickoIme: {
+                        title: 'Korisnicko ime',
+                        width: '23%'
+                    },
+                    DatumPolaganja: {
+                        title: 'Datum polaganja',
+                        width: '15%',
+                        type: 'date',
+                        displayFormat: 'yy-mm-dd'
+                    },
+                    BrojBodova: {
+                        title: 'Osvojeno bodova'
+                    },
+                    ProcenatOsvojenihBodova: {
+                        title: 'Procenat'
+                    }
+                }
+            });
+
+            //Load student list from server
+            $('#StudentTableContainer').jtable('load');
+        });
+
+    </script>
+}
