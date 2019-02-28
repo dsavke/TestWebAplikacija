@@ -11,6 +11,7 @@ namespace TestWebAplikacija.Models
         public int TestId { get; set; }
         public string Naziv { get; set; }
         public string Opis { get; set; }
+        [Range(0, 100)]
         public short ProcenatBodovaZaPolaganje { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

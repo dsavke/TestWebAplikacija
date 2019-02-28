@@ -21,6 +21,7 @@ namespace TestWebAplikacija.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Create(TestViewModel testViewModel)
         {
+
             using (var context = new TestContext())
             {
                 Test test = new Test()
